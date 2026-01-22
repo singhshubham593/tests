@@ -1,8 +1,8 @@
- import React, { useEffect } from "react";
+ import React, { useEffect ,useState } from "react";
 
 function Profile() {
-  const [data, setData] = React.useState([]);
-  const [page, setPage] = React.useState(1);
+  const [data, setData] = useState([]);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
