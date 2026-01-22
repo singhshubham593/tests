@@ -1,8 +1,8 @@
- import React, { useEffect,useState } from "react";
+ import React, { useEffect } from "react";
 
 function Profile() {
-  const [data, setData] = useState([]);
-  const [page, setPage] = useState(1);
+  const [data, setData] = React.useState([]);
+  const [page, setPage] = React.useState(1);
 
   useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/users")
@@ -10,32 +10,32 @@ function Profile() {
       .then((json) => setData(json));
   }, []);
 
-
   const totalPages = Math.ceil(data.length / 3);
   const start = (page - 1) * 3;
   const currentData = data.slice(start, start + 3);
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-6">
+    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
 
-      <div className="flex gap-6">
+    
+      <div className="w-full flex flex-col sm:flex-row sm:flex-wrap gap-6 justify-center items-center">
         {currentData.map((user) => (
-            console.log(user),
           <div
             key={user.id}
-            className="w-64 bg-blue-500
-            rounded-2xl p-6 text-white shadow-xl 
-            transform hover:scale-105 transition"
+            className="w-full sm:w-[280px] bg-blue-900
+              rounded-2xl p-6 text-white shadow-xl
+              transform hover:scale-105 transition"
           >
-         
-            <div className="w-24 h-24 rounded-full bg-blue-300 
-              flex items-center justify-center mx-auto mb-4">
-              <span className="text-3xl font-bold text-blue-900">
-                {user.name.charAt(0)}
-              </span>
+        
+            <div className="w-24 h-24 rounded-full overflow-hidden mx-auto mb-4 border-4 border-blue-400">
+              <img
+                src={`https://i.pravatar.cc/150?img=${user.id}`}
+                alt={user.name}
+                className="w-full h-full object-cover"
+              />
             </div>
 
-     
+            
             <h2 className="text-center text-lg font-semibold">
               {user.name}
             </h2>
@@ -43,22 +43,22 @@ function Profile() {
               @{user.username}
             </p>
 
-            <div className="mt-4 text-sm text-center space-y-1">
+            <div className="mt-4 text-sm text-center space-y-1 break-words">
               <p>{user.email}</p>
               <p>{user.phone}</p>
             </div>
-            
+
             <div className="mt-4 text-sm text-center space-y-1">
               <p>{user?.address?.city}</p>
               <p>{user?.company?.name}</p>
-               {console.log("hehe",user?.address)}
+               {console.log("hehe",user?.address?.city)}
             </div>
+           
           </div>
         ))}
       </div>
 
-      {/* Pagination */}
-      <div className="flex gap-4 mt-6 items-center">
+      <div className="flex gap-4 mt-6 items-center flex-wrap justify-center">
         <button
           disabled={page === 1}
           onClick={() => setPage(page - 1)}
